@@ -1,0 +1,45 @@
+import heapq
+
+def dijkstra(graph, start):
+  
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    priority_queue = [(0, start)]  # (mesafe, düğüm)
+    
+    while priority_queue:
+        current_distance, current_node = heapq.heappop(priority_queue)
+        
+        
+        if current_distance > distances[current_node]:
+            continue
+      t
+        for neighbor, weight in graph[current_node].items():
+            distance = current_distance + weight
+            
+         
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(priority_queue, (distance, neighbor))
+    
+    return distances
+
+graph = {
+    "A": {"B": 6, "D": 1},
+    "B": {"C": 5, "E": 2},
+    "C": {"F": 8},
+    "D": {"B": 2, "E": 6},
+    "E": {"F": 3},
+    "F": {}
+}
+
+
+start_node = "A"
+
+
+shortest_paths = dijkstra(graph, start_node)
+
+
+print(f"{start_node} düğümünden diğer düğümlere en kısa yollar:")
+for node, distance in shortest_paths.items():
+    print(f"{start_node} -> {node}: {distance}")
